@@ -19,9 +19,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
-@TeleOp(name="DriverBlue", group="Linear Opmode")
+@TeleOp(name="DriverBoth", group="Linear Opmode")
 
-public class DriverBlue extends LinearOpMode {
+public class DriverBoth extends LinearOpMode {
     private static final String colorString = "blue";
 
     @Override
