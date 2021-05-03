@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -20,24 +20,28 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
-@Autonomous
+@TeleOp(name="VROOOM", group="Linear Opmode")
 
-public class AutoBlue extends LinearOpMode {
+public class MotorGoVROOOOOM extends LinearOpMode {
+    private DcMotor vroom = null;
+    public Servo pusher = null;
+    
+    @Override
     public void runOpMode() {
-        Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
-        UltimateGoalWebcam goal = new UltimateGoalWebcam();
-        BrainNew brainnew = new BrainNew(hardwareMap, drivetrain, telemetry);
-        telemetry.addData("Ready", "Yes");
-        telemetry.update();
+        vroom  = hardwareMap.get(DcMotor.class, "green");
+        pusher = hardwareMap.get(Servo.class, "shoot");
+        vroom.setDirection(DcMotor.Direction.FORWARD);
         waitForStart();
-        if (opModeIsActive()) {
-            drivetrain.forwardToColorStop("blue", -0.5, 0);
+        while (opModeIsActive()) {
+            vroom.setPower(1.0);
             
-            double[] coordinates = goal.getCoordinates();
-            double X = coordinates[0];
-            double Y = coordinates[1];
-            if (true) {
-                brainnew.goToPoint(X, Y, 2, 39, "g");
+            for (int i = 0; i < 5; i++) {
+                if (i == 5) {
+                    pusher.setPosition(0);
+                    try {Thread.sleep(250);} catch(InterruptedException ule) {}
+                    pusher.setPosition(0);
+                }
+                try {Thread.sleep(1000);} catch(InterruptedException ule) {}
             }
         }
     }
