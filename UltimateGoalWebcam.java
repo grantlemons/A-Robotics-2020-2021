@@ -101,6 +101,7 @@ public class UltimateGoalWebcam extends LinearOpMode {
      */
     Dotenv dotenv = Dotenv.load();
     private String VUFORIA_KEY = dotenv.get("VUFORIA_KEY");
+    private String WEBCAM_NAME = dotenv.get("WEBCAM_NAME");
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -132,7 +133,7 @@ public class UltimateGoalWebcam extends LinearOpMode {
     @Override public void runOpMode() {}
     
     public double[] getCoordinates() {
-        webcamName = hardwareMap.get(WebcamName.class, "webcam");
+        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
         
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
