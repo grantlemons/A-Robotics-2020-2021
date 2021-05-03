@@ -14,7 +14,6 @@ import com.qualcomm.robotcore.hardware.SwitchableLight;
 @TeleOp(name = "ColorSensor", group = "Sensor")
 
 public class ColorSensor extends LinearOpMode {
-  
   /** The colorSensor field will contain a reference to our color sensor hardware object */
   NormalizedColorSensor colorSensor;
   /** The relativeLayout field is used to aid in providing interesting visual feedback
@@ -40,7 +39,6 @@ public class ColorSensor extends LinearOpMode {
       });
       }
   }
-  
 
   protected void runSample() throws InterruptedException {
 
@@ -103,7 +101,7 @@ public class ColorSensor extends LinearOpMode {
               .addData("r", "%02x", Color.red(color))
               .addData("g", "%02x", Color.green(color))
               .addData("b", "%02x", Color.blue(color));
-              
+
       if (colors.red > colors.blue*2) {
           telemetry.addData("color", "red");
       }
@@ -123,7 +121,7 @@ public class ColorSensor extends LinearOpMode {
               .addData("g", "%02x", Color.green(color))
               .addData("b", "%02x", Color.blue(color));
       telemetry.update();
-      
+
       // to the HSVToColor method.
       relativeLayout.post(new Runnable() {
         public void run() {
