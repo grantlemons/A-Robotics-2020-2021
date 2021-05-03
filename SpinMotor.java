@@ -20,29 +20,24 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
-@TeleOp(name="VROOOM", group="Linear Opmode")
+@TeleOp(name="Spin Motor", group="Linear Opmode")
 
-public class MotorGoVROOOOOM extends LinearOpMode {
+public class SpinMotor extends LinearOpMode {
     private DcMotor vroom = null;
     public Servo pusher = null;
+
+    Dotenv dotenv = Dotenv.load();
+    private String THROWER_MOTOR = dotenv.get("THROWER_MOTOR");
+    private String PUSHER_SERVO = dotenv.get("PUSHER_SERVO");
     
     @Override
     public void runOpMode() {
-        vroom  = hardwareMap.get(DcMotor.class, "green");
-        pusher = hardwareMap.get(Servo.class, "shoot");
-        vroom.setDirection(DcMotor.Direction.FORWARD);
+        motor  = hardwareMap.get(DcMotor.class, THROWER_MOTOR);
+        pusher = hardwareMap.get(Servo.class, PUSHER_SERVO);
+        motor.setDirection(DcMotor.Direction.FORWARD);
         waitForStart();
         while (opModeIsActive()) {
-            vroom.setPower(1.0);
-            
-            for (int i = 0; i < 5; i++) {
-                if (i == 5) {
-                    pusher.setPosition(0);
-                    try {Thread.sleep(250);} catch(InterruptedException ule) {}
-                    pusher.setPosition(0);
-                }
-                try {Thread.sleep(1000);} catch(InterruptedException ule) {}
-            }
+            motor.setPower(1.0);
         }
     }
 }
