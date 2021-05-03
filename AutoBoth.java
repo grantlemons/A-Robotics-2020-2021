@@ -25,7 +25,6 @@ import java.util.Locale;
 public class AutoBoth extends LinearOpMode {
     private static final String colorString = "blue";
 
-
     public void runOpMode() {
         StoneTracker stoneTracker = new StoneTracker();
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
