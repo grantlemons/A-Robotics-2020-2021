@@ -30,7 +30,7 @@ public class SpinMotor extends LinearOpMode {
     Dotenv dotenv = Dotenv.load();
     private String THROWER_MOTOR = dotenv.get("THROWER_MOTOR");
     private String PUSHER_SERVO = dotenv.get("PUSHER_SERVO");
-    
+
     @Override
     public void runOpMode() {
         motor  = hardwareMap.get(DcMotor.class, THROWER_MOTOR);
