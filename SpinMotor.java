@@ -23,7 +23,7 @@ import java.util.Locale;
 @TeleOp(name="Spin Motor", group="Linear Opmode")
 
 public class SpinMotor extends LinearOpMode {
-    private DcMotor vroom = null;
+    private DcMotor motor = null;
     public Servo pusher = null;
 
     Dotenv dotenv = Dotenv.load();
