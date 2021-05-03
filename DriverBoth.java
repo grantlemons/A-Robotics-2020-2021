@@ -27,7 +27,7 @@ public class DriverBoth extends LinearOpMode {
     @Override
     public void runOpMode() {
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
-        Brain brain = new Brain(hardwareMap, drivetrain, telemetry);
+        BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
         waitForStart();
 
         while (opModeIsActive()) {
