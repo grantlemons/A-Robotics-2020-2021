@@ -22,22 +22,33 @@ import java.util.Locale;
 
 @Autonomous
 
-public class AutoBlue extends LinearOpMode {
+public class AutoBoth extends LinearOpMode {
+    private static final String colorString = "blue";
+
+
     public void runOpMode() {
+        StoneTracker stoneTracker = new StoneTracker();
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
         UltimateGoalWebcam goal = new UltimateGoalWebcam();
-        BrainNew brainnew = new BrainNew(hardwareMap, drivetrain, telemetry);
+        BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
         telemetry.addData("Ready", "Yes");
         telemetry.update();
         waitForStart();
         if (opModeIsActive()) {
-            drivetrain.forwardToColorStop("blue", -0.5, 0);
+            drivetrain.forwardToColorStop(colorString, -0.5, 0);
             
             double[] coordinates = goal.getCoordinates();
             double X = coordinates[0];
             double Y = coordinates[1];
             if (true) {
-                brainnew.goToPoint(X, Y, 2, 39, "g");
+                switch (colorString) {
+                    case "blue":
+                        brain.goToPoint(X, Y, 2, 39, "g");
+                        break;
+                    case "red":
+                        brain.goToPoint(X, Y, 2, -39, "g");
+                        break;
+                }
             }
         }
     }
