@@ -19,30 +19,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
-@TeleOp(name="DriverRed", group="Linear Opmode")
+@TeleOp(name="DriverBlue", group="Linear Opmode")
 
-public class DriverRed extends LinearOpMode {
+public class DriverBlue extends LinearOpMode {
+    private static final String colorString = "blue";
+
     @Override
     public void runOpMode() {
-        //Init StoneTracker
-        StoneTracker stoneTracker = new StoneTracker();
-//        stoneTracker.init(hardwareMap);
-//        stoneTracker.activate();
-
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
         Brain brain = new Brain(hardwareMap, drivetrain, telemetry);
-
         waitForStart();
 
         while (opModeIsActive()) {
             //*******************
             // Drivetrain
             //*******************
-            //Disable drivetrain with all buttons for when on table
             if(!gamepad1.right_bumper) {
                 drivetrain.driveWithLimit(
                     -gamepad1.left_stick_y,
                     gamepad1.right_stick_x,
+                    //0,
                     gamepad1.left_stick_x
                 );
             }
@@ -50,14 +46,26 @@ public class DriverRed extends LinearOpMode {
                 drivetrain.driveWithLimit(
                     -gamepad1.left_stick_y*0.15,
                     gamepad1.right_stick_x*0.15,
+                    //0,
                     gamepad1.left_stick_x*0.15
                 );
             }
 
-            while(gamepad1.x) {drivetrain.setHeading(180);}
-            while(gamepad1.a) {drivetrain.setHeading(-90);} // +angle is left
-            while(gamepad1.y) {drivetrain.setHeading(90);} // -angle is right
-            while(gamepad1.b) {drivetrain.setHeading(0);}
+            switch (colorString) {
+                case "blue":
+                    while(gamepad1.x) {drivetrain.setHeading(0);}
+                    while(gamepad1.a) {drivetrain.setHeading(90);} // +angle is left
+                    while(gamepad1.y) {drivetrain.setHeading(-90);} // -angle is right
+                    while(gamepad1.b) {drivetrain.setHeading(180);}
+                    break;
+                case "red":
+                    while(gamepad1.x) {drivetrain.setHeading(180);}
+                    while(gamepad1.a) {drivetrain.setHeading(-90);} // +angle is left
+                    while(gamepad1.y) {drivetrain.setHeading(90);} // -angle is right
+                    while(gamepad1.b) {drivetrain.setHeading(0);}
+                    break;
+            }
+            
         }
     }
 }
