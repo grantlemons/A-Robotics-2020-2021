@@ -26,7 +26,6 @@ public class AutoBoth extends LinearOpMode {
     private static final String colorString = "blue";
 
     public void runOpMode() {
-        StoneTracker stoneTracker = new StoneTracker();
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
         UltimateGoalWebcam goal = new UltimateGoalWebcam();
         BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
