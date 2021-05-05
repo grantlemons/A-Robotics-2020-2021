@@ -47,4 +47,8 @@ public class BrainNew {
                 break;
         }
     }
+
+    void sleep ( ElapsedTime timeObject, double time ) {
+        while ( timeObject < time ) {}
+    }
 }
