@@ -33,7 +33,7 @@ public class SpinMotor extends LinearOpMode {
         double targetAngle = 145;
 
         waitForStart();
-        time.reset();
+        runtime.reset();
         while (opModeIsActive()) {
 
             if ( runtime.time() < 5 ) {
