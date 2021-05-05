@@ -15,6 +15,7 @@ import java.util.Locale;
 public class SpinMotor extends LinearOpMode {
     Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
     BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
+    public ElapsedTime time = new ElapsedTime();
 
     private DcMotor motor = null;
     public Servo pusher = null;
@@ -32,7 +33,7 @@ public class SpinMotor extends LinearOpMode {
         double targetAngle = 145;
 
         waitForStart();
-        public ElapsedTime time = new ElapsedTime();
+        time.reset();
         while (opModeIsActive()) {
             motor.setPower(1.0);
             brain.sleep(5);
