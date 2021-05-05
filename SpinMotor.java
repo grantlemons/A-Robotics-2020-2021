@@ -13,14 +13,11 @@ import java.util.Locale;
 @TeleOp(name="Spin Motor", group="Linear Opmode")
 
 public class SpinMotor extends LinearOpMode {
-    Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
-    BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
     public ElapsedTime runtime = new ElapsedTime();
 
     private DcMotor motor = null;
     public Servo pusher = null;
 
-    // Dotenv dotenv = Dotenv.load();
     private String THROWER_MOTOR = "green";
     private String PUSHER_SERVO = "servo0";
 
