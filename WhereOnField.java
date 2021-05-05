@@ -53,7 +53,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 
 
-@TeleOp(name="ULTIMATEGOAL Vuforia Nav Webcam", group ="Concept")
+@TeleOp(name="Vuforia Test", group ="Concept")
 
 public class WhereOnField extends LinearOpMode {
     // Dotenv dotenv = Dotenv.load();
