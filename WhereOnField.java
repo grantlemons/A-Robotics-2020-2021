@@ -50,15 +50,15 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XZY;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import io.github.cdimascio.dotenv.Dotenv;
+
 
 
 @TeleOp(name="ULTIMATEGOAL Vuforia Nav Webcam", group ="Concept")
 
 public class WhereOnField extends LinearOpMode {
-    Dotenv dotenv = Dotenv.load();
-    private String VUFORIA_KEY = dotenv.get("VUFORIA_KEY");
-    private String WEBCAM_NAME = dotenv.get("WEBCAM_NAME");
+    // Dotenv dotenv = Dotenv.load();
+    private String VUFORIA_KEY = "AYME2p3/////AAABmeVjQ60ipUjutO8p+A5CWZgB9Kpp3Sm0nTmkXigsOPptZ5kOtQO3KMhDVl+dbGxPtlPm7RCZMPj6Vu1DnCA01y4cz9S6Bh5m5jEecvtvw6c11JFf3jFr63uqQkPEemN8sjJJmFeMgu9PyxAREcPwn86rpRhYrAq7m3RtuT+UjzVOt9fZsp33URsKgsgraY932jDOa033slaKf2sh829y23jyMmPTC1yxU+fxDsDoePByS9AhiJG+c1WWF/w8VS94ORuIXbqc+nBcgGYpLXtFYLZLAPTyNkCgWWtVMDvoFV/SD8v3C+/cpz4+uIjzfqtqimyZlb8OpO/xv/kvXTnHZo0AXGR4tZNvAleetU4M9VIf";
+    private String WEBCAM_NAME = "webcam";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
