@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -21,12 +22,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XZY;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import io.github.cdimascio.dotenv.Dotenv;
 
-public class UltimateGoalWebcam extends LinearOpMode {
-    Dotenv dotenv = Dotenv.load();
-    private String VUFORIA_KEY = dotenv.get("VUFORIA_KEY");
-    private String WEBCAM_NAME = dotenv.get("WEBCAM_NAME");
+public class UltimateGoalWebcam {
+    private String VUFORIA_KEY = "AYME2p3/////AAABmeVjQ60ipUjutO8p+A5CWZgB9Kpp3Sm0nTmkXigsOPptZ5kOtQO3KMhDVl+dbGxPtlPm7RCZMPj6Vu1DnCA01y4cz9S6Bh5m5jEecvtvw6c11JFf3jFr63uqQkPEemN8sjJJmFeMgu9PyxAREcPwn86rpRhYrAq7m3RtuT+UjzVOt9fZsp33URsKgsgraY932jDOa033slaKf2sh829y23jyMmPTC1yxU+fxDsDoePByS9AhiJG+c1WWF/w8VS94ORuIXbqc+nBcgGYpLXtFYLZLAPTyNkCgWWtVMDvoFV/SD8v3C+/cpz4+uIjzfqtqimyZlb8OpO/xv/kvXTnHZo0AXGR4tZNvAleetU4M9VIf";
+    private String WEBCAM_NAME = "webcam";
+    HardwareMap hardwareMap = null;
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -51,7 +51,9 @@ public class UltimateGoalWebcam extends LinearOpMode {
     double X;
     double Y;
 
-    @Override public void runOpMode() {}
+    public UltimateGoalWebcam(HardwareMap hwareMap) {
+        hardwareMap = hwareMap;
+    }
 
     public double[] getCoordinates() {
         webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
@@ -130,7 +132,7 @@ public class UltimateGoalWebcam extends LinearOpMode {
         targetVisible = false;
         for (VuforiaTrackable trackable : allTrackables) {
             if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
-                telemetry.addData("Visible Target", trackable.getName());
+                
                 targetVisible = true;
 
                 // getUpdatedRobotLocation() will return null if no new information is available since
@@ -147,7 +149,7 @@ public class UltimateGoalWebcam extends LinearOpMode {
         if (targetVisible) {
             // express position (translation) of robot in inches.
             VectorF translation = lastLocation.getTranslation();
-            //telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+            //
             //        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
             X = translation.get(0) / mmPerInch;
@@ -155,7 +157,7 @@ public class UltimateGoalWebcam extends LinearOpMode {
 
             // express the rotation of the robot in degrees.
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-            telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            
         }
         // Disable Tracking when we are done;
         targetsUltimateGoal.deactivate();
