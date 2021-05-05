@@ -27,26 +27,31 @@ public class AutoBoth extends LinearOpMode {
 
     public void runOpMode() {
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
-        UltimateGoalWebcam goal = new UltimateGoalWebcam();
+        UltimateGoalWebcam goal = new UltimateGoalWebcam(hardwareMap);
         BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
         telemetry.addData("Ready", "Yes");
         telemetry.update();
         waitForStart();
-        if (opModeIsActive()) {
-            drivetrain.forwardToColorStop(colorString, -0.5, 0);
-            
-            double[] coordinates = goal.getCoordinates();
-            double X = coordinates[0];
-            double Y = coordinates[1];
-            if (true) {
-                switch (colorString) {
-                    case "blue":
-                        brain.goToPoint(X, Y, 2, 39, "g");
-                        break;
-                    case "red":
-                        brain.goToPoint(X, Y, 2, -39, "g");
-                        break;
+        boolean run = true;
+        while (opModeIsActive()) {
+            if (run) {
+                drivetrain.forwardToColorStop(colorString, -0.5, 0);
+                drivetrain.forwardDistance(-6, 0.5);
+    
+                double[] coordinates = goal.getCoordinates();
+                double X = coordinates[0];
+                double Y = coordinates[1];
+                if (true) {
+                    switch (colorString) {
+                        case "blue":
+                            brain.goToPoint(X, Y, 2, 39, "g");
+                            break;
+                        case "red":
+                            brain.goToPoint(X, Y, 2, -39, "g");
+                            break;
+                    }
                 }
+                run = false;
             }
         }
     }
