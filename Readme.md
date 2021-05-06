@@ -1,4 +1,4 @@
-#Here is the current configuration of the robot:
+## Here is the current configuration of the robot:
 
 WEBCAM_NAME = `webcam`\
 LEFTFRONT_NAME = `purple`\
