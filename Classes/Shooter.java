@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Locale;
+import java.lang.*;
 
 public class Shooter {
     public ElapsedTime runtime = new ElapsedTime();
@@ -13,9 +14,9 @@ public class Shooter {
     private DcMotor motor = null;
     public Servo pusher = null;
     HardwareMap hardwareMap = null;
-
-    private String THROWER_MOTOR = "green";
-    private String PUSHER_SERVO = "servo0";
+    
+    private String THROWER_MOTOR = System.getenv("THROWER_MOTOR");
+    private String PUSHER_SERVO = System.getenv("PUSHER_SERVO");
 
     double targetAngle = 145;
 

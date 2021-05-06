@@ -24,6 +24,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.Locale;
+import java.lang.*;
 import android.graphics.Color;
 
 public class Drivetrain {
@@ -42,11 +43,10 @@ public class Drivetrain {
     ElapsedTime timer;
     double lastTime;
 
-    // Dotenv dotenv = Dotenv.load();
-    private String LEFTFRONT_NAME = "purple";
-    private String RIGHTFRONT_NAME = "orange";
-    private String LEFTBACK_NAME = "red";
-    private String RIGHTBACK_NAME = "black";
+    private String LEFTFRONT_NAME = System.getenv("LEFTFRONT_NAME");
+    private String RIGHTFRONT_NAME = System.getenv("RIGHTFRONT_NAME");
+    private String LEFTBACK_NAME = System.getenv("LEFTBACK_NAME");
+    private String RIGHTBACK_NAME = System.getenv("RIGHTBACK_NAME");
 
     public Drivetrain(HardwareMap hardwareMap, Telemetry aTelemetry) {
         //Assign vars to ports

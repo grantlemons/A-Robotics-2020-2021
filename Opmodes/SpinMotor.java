@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import java.util.Locale;
+import java.lang.*;
 
 @TeleOp(name="Spin Motor", group="Linear Opmode")
 
@@ -18,8 +19,8 @@ public class SpinMotor extends LinearOpMode {
     private DcMotor motor = null;
     public Servo pusher = null;
 
-    private String THROWER_MOTOR = "green";
-    private String PUSHER_SERVO = "servo0";
+    private String THROWER_MOTOR = System.getenv("THROWER_MOTOR");
+    private String PUSHER_SERVO = System.getenv("PUSHER_SERVO");
 
     @Override
     public void runOpMode() {

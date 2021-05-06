@@ -18,11 +18,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
+import java.lang.*;
 
 @TeleOp(name="DriverBoth", group="Linear Opmode")
 
 public class DriverBoth extends LinearOpMode {
-    private static final String colorString = "blue";
+    private static final String colorString = System.getenv("SIDE");
 
     @Override
     public void runOpMode() {
