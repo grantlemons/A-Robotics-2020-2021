@@ -19,11 +19,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
+import java.lang.*;
 
 @Autonomous
 
 public class AutoBoth extends LinearOpMode {
-    private static final String colorString = "blue";
+    private static final String colorString = System.getenv("SIDE");
 
     public void runOpMode() {
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
