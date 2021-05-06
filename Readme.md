@@ -1,6 +1,5 @@
 #Here is the current configuration of the robot:
 
-VUFORIA_KEY = ``\
 WEBCAM_NAME = `webcam`\
 LEFTFRONT_NAME = `purple`\
 RIGHTFRONT_NAME = `orange`\
