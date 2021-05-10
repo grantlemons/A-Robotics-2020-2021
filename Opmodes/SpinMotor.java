@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import java.util.Locale;
-import java.lang.System.getenv;
+import java.lang.*;
 
 @TeleOp(name="Spin Motor", group="Linear Opmode")
 
