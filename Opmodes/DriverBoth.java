@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
-import java.lang.*;
+import java.lang.System.getenv;
 
 @TeleOp(name="DriverBoth", group="Linear Opmode")
 

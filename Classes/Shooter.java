@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.Locale;
-import java.lang.*;
+import java.lang.System.getenv;
 
 public class Shooter {
     public ElapsedTime runtime = new ElapsedTime();

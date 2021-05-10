@@ -24,7 +24,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.Locale;
-import java.lang.*;
+import java.lang.System.getenv;
 import android.graphics.Color;
 
 public class Drivetrain {
