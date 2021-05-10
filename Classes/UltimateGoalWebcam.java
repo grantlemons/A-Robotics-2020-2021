@@ -20,8 +20,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XZY;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 
 public class UltimateGoalWebcam {
-    private String VUFORIA_KEY = "AYME2p3/////AAABmeVjQ60ipUjutO8p+A5CWZgB9Kpp3Sm0nTmkXigsOPptZ5kOtQO3KMhDVl+dbGxPtlPm7RCZMPj6Vu1DnCA01y4cz9S6Bh5m5jEecvtvw6c11JFf3jFr63uqQkPEemN8sjJJmFeMgu9PyxAREcPwn86rpRhYrAq7m3RtuT+UjzVOt9fZsp33URsKgsgraY932jDOa033slaKf2sh829y23jyMmPTC1yxU+fxDsDoePByS9AhiJG+c1WWF/w8VS94ORuIXbqc+nBcgGYpLXtFYLZLAPTyNkCgWWtVMDvoFV/SD8v3C+/cpz4+uIjzfqtqimyZlb8OpO/xv/kvXTnHZo0AXGR4tZNvAleetU4M9VIf";
-    private String WEBCAM_NAME = "webcam";
+    Config config = new Config();
     HardwareMap hardwareMap = null;
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
@@ -52,14 +51,14 @@ public class UltimateGoalWebcam {
     }
 
     public double[] getCoordinates() {
-        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
+        webcamName = hardwareMap.get(WebcamName.class, config.WEBCAM_NAME);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.vuforiaLicenseKey = config.VUFORIA_KEY;
 
         /**
          * We also indicate which camera on the RC we wish to use.

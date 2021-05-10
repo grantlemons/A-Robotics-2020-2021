@@ -17,14 +17,12 @@ public class SpinMotor extends LinearOpMode {
 
     private DcMotor motor = null;
     public Servo pusher = null;
-
-    private String THROWER_MOTOR = "green";
-    private String PUSHER_SERVO = "servo0";
+    Config config = new Config();
 
     @Override
     public void runOpMode() {
-        motor  = hardwareMap.get(DcMotor.class, THROWER_MOTOR);
-        pusher = hardwareMap.get(Servo.class, PUSHER_SERVO);
+        motor  = hardwareMap.get(DcMotor.class, config.THROWER_MOTOR);
+        pusher = hardwareMap.get(Servo.class, config.PUSHER_SERVO);
         motor.setDirection(DcMotor.Direction.FORWARD);
 
         double targetAngle = 145;

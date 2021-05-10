@@ -41,19 +41,14 @@ public class Drivetrain {
     double rightFrontPwrCurrent;
     ElapsedTime timer;
     double lastTime;
-
-    // Dotenv dotenv = Dotenv.load();
-    private String LEFTFRONT_NAME = "purple";
-    private String RIGHTFRONT_NAME = "orange";
-    private String LEFTBACK_NAME = "red";
-    private String RIGHTBACK_NAME = "black";
+    Config config = new Config();
 
     public Drivetrain(HardwareMap hardwareMap, Telemetry aTelemetry) {
         //Assign vars to ports
-        leftFront  = hardwareMap.get(DcMotor.class, LEFTFRONT_NAME);
-        leftBack = hardwareMap.get(DcMotor.class, LEFTBACK_NAME);
-        rightFront = hardwareMap.get(DcMotor.class, RIGHTFRONT_NAME);
-        rightBack = hardwareMap.get(DcMotor.class, RIGHTBACK_NAME);
+        leftFront  = hardwareMap.get(DcMotor.class, config.LEFTFRONT_NAME);
+        leftBack = hardwareMap.get(DcMotor.class, config.LEFTBACK_NAME);
+        rightFront = hardwareMap.get(DcMotor.class, config.RIGHTFRONT_NAME);
+        rightBack = hardwareMap.get(DcMotor.class, config.RIGHTBACK_NAME);
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
