@@ -48,13 +48,6 @@ public class UltimateGoalWebcam {
         hardwareMap = hwareMap;
     }
 
-<<<<<<< Updated upstream
-    public double[] getCoordinates() {
-<<<<<<< Updated upstream
-        webcamName = hardwareMap.get(WebcamName.class, config.WEBCAM_NAME);
-=======
-        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
-=======
     public double getX() {
         return X;
     }
@@ -68,8 +61,6 @@ public class UltimateGoalWebcam {
          * Retrieve the camera we are to use.
          */
         webcamName = hardwareMap.get(WebcamName.class, config.WEBCAM_NAME);
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -163,7 +154,7 @@ public class UltimateGoalWebcam {
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
                 // express position (translation) of robot in inches.
-                
+                VectorF translation = lastLocation.getTranslation();
                 // telemetry was here
 
                 // express the rotation of the robot in degrees.
@@ -177,7 +168,6 @@ public class UltimateGoalWebcam {
         }
 
         // Disable Tracking when we are done;
-        VectorF translation = lastLocation.getTranslation();
         targetsUltimateGoal.deactivate();
         X = translation.get(0) / mmPerInch;
         Y = translation.get(1) / mmPerInch;

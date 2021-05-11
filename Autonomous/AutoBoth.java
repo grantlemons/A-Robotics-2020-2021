@@ -18,6 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import java.util.Locale;
 
 @Autonomous
@@ -35,12 +36,15 @@ public class AutoBoth extends LinearOpMode {
         boolean run = true;
         while (opModeIsActive()) {
             if (run) {
-                double[] coordinates = goal.getCoordinates();
-                double X = coordinates[0];
-                double Y = coordinates[1];
+                goal.getCoordinates();
+                double X = goal.getX();
+                double Y = goal.getY();
 
                 drivetrain.forwardToColorStop(config.SIDE, -0.5, 0);
                 drivetrain.forwardDistance(-6, 0.5);
+
+                telemetry.addData("Pos (in)", "{X, Y} = %.1f, %.1f", X, Y);
+                telemetry.update();
 
                 switch (config.SIDE) {
                     case "blue":
