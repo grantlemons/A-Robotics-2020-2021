@@ -28,20 +28,20 @@ public class BrainNew {
         int difference_y = (int)target_y - (int)y;
         switch (direction) {
             case "rw":
-                drivetrain.strafeDistance( -difference_x, 1 );
+                drivetrain.strafeDistance( difference_x, 1 );
                 drivetrain.forwardDistance( -difference_y, 1 );
                 break;
             case "bw":
-                drivetrain.strafeDistance( difference_x, 1 );
+                drivetrain.strafeDistance( -difference_x, 1 );
                 drivetrain.forwardDistance( difference_y, 1 );
                 break;
             case "b":
                 drivetrain.forwardDistance( -difference_x, 1 );
-                drivetrain.strafeDistance( difference_y, 1 );
+                drivetrain.strafeDistance( -difference_y, 1 );
                 break;
             case "g":
                 drivetrain.forwardDistance( difference_x, 1 );
-                drivetrain.strafeDistance( -difference_y, 1 );
+                drivetrain.strafeDistance( difference_y, 1 );
                 break;
             default:
                 break;

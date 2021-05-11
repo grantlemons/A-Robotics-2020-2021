@@ -82,7 +82,8 @@ public class WhereOnField extends LinearOpMode {
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
 
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
         /*
          * Retrieve the camera we are to use.
          */
