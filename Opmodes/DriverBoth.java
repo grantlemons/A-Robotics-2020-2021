@@ -20,9 +20,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
 @TeleOp(name="DriverBoth", group="Linear Opmode")
-
 public class DriverBoth extends LinearOpMode {
-    private static final String colorString = "blue";
+    Config config = new Config();
 
     @Override
     public void runOpMode() {
@@ -51,7 +50,7 @@ public class DriverBoth extends LinearOpMode {
                 );
             }
 
-            switch (colorString) {
+            switch (config.SIDE) {
                 case "blue":
                     while(gamepad1.x) {drivetrain.setHeading(0);}
                     while(gamepad1.a) {drivetrain.setHeading(90);} // +angle is left

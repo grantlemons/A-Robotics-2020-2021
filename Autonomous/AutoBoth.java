@@ -23,9 +23,8 @@ import java.util.Locale;
 @Autonomous
 
 public class AutoBoth extends LinearOpMode {
-    private static final String colorString = "blue";
-
     public void runOpMode() {
+        Config config = new Config();
         Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
         UltimateGoalWebcam goal = new UltimateGoalWebcam(hardwareMap);
         BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
@@ -40,10 +39,10 @@ public class AutoBoth extends LinearOpMode {
                 double X = coordinates[0];
                 double Y = coordinates[1];
 
-                drivetrain.forwardToColorStop(colorString, -0.5, 0);
+                drivetrain.forwardToColorStop(config.SIDE, -0.5, 0);
                 drivetrain.forwardDistance(-6, 0.5);
 
-                switch (colorString) {
+                switch (config.SIDE) {
                     case "blue":
                         brain.goToPoint(X, Y, 2, 39, "g");
                         break;

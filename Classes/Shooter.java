@@ -9,20 +9,17 @@ import java.util.Locale;
 
 public class Shooter {
     public ElapsedTime runtime = new ElapsedTime();
-
     private DcMotor motor = null;
     public Servo pusher = null;
     HardwareMap hardwareMap = null;
-
-    private String THROWER_MOTOR = "green";
-    private String PUSHER_SERVO = "servo0";
+    Config config = new Config();
 
     double targetAngle = 145;
 
     public Shooter ( HardwareMap hwareMap ) {
         hardwareMap = hwareMap;
-        motor  = hardwareMap.get(DcMotor.class, THROWER_MOTOR);
-        pusher = hardwareMap.get(Servo.class, PUSHER_SERVO);
+        motor  = hardwareMap.get(DcMotor.class, config.THROWER_MOTOR);
+        pusher = hardwareMap.get(Servo.class, config.PUSHER_SERVO);
         motor.setDirection(DcMotor.Direction.FORWARD);
     }
 
