@@ -15,12 +15,14 @@ public class BrainNew {
     Telemetry telemetry;
     LinearOpMode opMode;
     ElapsedTime timer = new ElapsedTime();
+    boolean isActive = false;
     
     
-    public BrainNew(HardwareMap hardwareMap, Drivetrain aDrivetrain, Telemetry aTelemetry) {
+    public BrainNew(HardwareMap hardwareMap, Drivetrain aDrivetrain, Telemetry aTelemetry, boolean aIsActive) {
         drivetrain = aDrivetrain;
         telemetry = aTelemetry;
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        isActive = aIsActive;
     }
     
     void goToPoint (double x, double y, double target_x, double target_y, String direction) {

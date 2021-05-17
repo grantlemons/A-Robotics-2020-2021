@@ -42,8 +42,10 @@ public class Drivetrain {
     ElapsedTime timer;
     double lastTime;
     Config config = new Config();
+    boolean isActive = false;
 
-    public Drivetrain(HardwareMap hardwareMap, Telemetry aTelemetry) {
+    public Drivetrain(HardwareMap hardwareMap, Telemetry aTelemetry, boolean aIsActive) {
+        isActive = aIsActive;
         //Assign vars to ports
         leftFront  = hardwareMap.get(DcMotor.class, config.LEFTFRONT_NAME);
         leftBack = hardwareMap.get(DcMotor.class, config.LEFTBACK_NAME);
@@ -170,7 +172,7 @@ NormalizedRGBA colors = colorSensor.getNormalizedColors();
                 leftFrontPwrCurrent != leftFrontPwrTarget 
             || leftBackPwrCurrent != leftBackPwrTarget
             || rightFrontPwrCurrent != rightFrontPwrTarget 
-            || rightBackPwrCurrent != rightBackPwrTarget);
+            || rightBackPwrCurrent != rightBackPwrTarget && isActive);
     }
     
     private double getNewPower(double elapsedTime, double currentPower, double targetPower) {
@@ -260,14 +262,14 @@ NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
         driveOneCallWithLimit(power, 0, 0);
 
-        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 600) {}
+        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 600 && isActive) {}
 
         driveOneCallWithLimit(.3, 0, 0);
 
-        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 5) {}
-        while(Math.abs(leftBack.getCurrentPosition() - targetLeftBackPos) > 5) {}
-        while(Math.abs(rightFront.getCurrentPosition() - targetRightFrontPos) > 5) {}
-        while(Math.abs(rightBack.getCurrentPosition() - targetRightBackPos) > 5) {}
+        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 5 && isActive) {}
+        while(Math.abs(leftBack.getCurrentPosition() - targetLeftBackPos) > 5 && isActive) {}
+        while(Math.abs(rightFront.getCurrentPosition() - targetRightFrontPos) > 5 && isActive) {}
+        while(Math.abs(rightBack.getCurrentPosition() - targetRightBackPos) > 5 && isActive) {}
 
         driveOneCallWithLimit(0, 0, 0);
 
@@ -300,14 +302,14 @@ NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
         driveOneCallWithLimit(power, 0, 0);
 
-        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 600) {}
+        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 600 && isActive) {}
 
         driveOneCallWithLimit(.3, 0, 0);
 
-        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 5) {}
-        while(Math.abs(leftBack.getCurrentPosition() - targetLeftBackPos) > 5) {}
-        while(Math.abs(rightFront.getCurrentPosition() - targetRightFrontPos) > 5) {}
-        while(Math.abs(rightBack.getCurrentPosition() - targetRightBackPos) > 5) {}
+        while(Math.abs(leftFront.getCurrentPosition() - targetLeftFrontPos) > 5 && isActive) {}
+        while(Math.abs(leftBack.getCurrentPosition() - targetLeftBackPos) > 5 && isActive) {}
+        while(Math.abs(rightFront.getCurrentPosition() - targetRightFrontPos) > 5 && isActive) {}
+        while(Math.abs(rightBack.getCurrentPosition() - targetRightBackPos) > 5 && isActive) {}
 
         driveOneCallWithLimit(0, 0, 0);
 
@@ -325,7 +327,7 @@ NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
         // Allow for some variance in hue and saturation
         while ((searchColor.equals("blue") && !(colors.blue > colors.red*2.5)) ||
-        (searchColor.equals("red") && !(colors.red > colors.blue*2))) {
+        (searchColor.equals("red") && !(colors.red > colors.blue*2)) && isActive) {
             driveWithLimit(power, headingAdjust(heading), 0);
             colors = colorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);
@@ -340,7 +342,7 @@ NormalizedRGBA colors = colorSensor.getNormalizedColors();
 
         // Allow for some variance in hue and saturation
         while ((searchColor.equals("blue") && !(colors.blue > colors.red*2)) ||
-        (searchColor.equals("red") && !(colors.red > colors.blue*2))) {
+        (searchColor.equals("red") && !(colors.red > colors.blue*2)) && isActive) {
             driveWithLimit(power, headingAdjust(heading), 0);
             colors = colorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);

@@ -37,6 +37,7 @@ public class UltimateGoalWebcam {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+    boolean isActive = false;
 
     int X = 0;
     int Y = 0;
@@ -54,9 +55,10 @@ public class UltimateGoalWebcam {
         return Z;
     }
 
-    public UltimateGoalWebcam(HardwareMap hardwaremap, Telemetry atelemetry) {
+    public UltimateGoalWebcam(HardwareMap hardwaremap, Telemetry atelemetry, boolean aIsActive) {
         hardwareMap = hardwaremap;
         telemetry = atelemetry;
+        isActive = aIsActive;
     }
 
     public void run() {
@@ -117,7 +119,7 @@ public class UltimateGoalWebcam {
         }
 
         targetsUltimateGoal.activate();
-        while (!isStopRequested()) {
+        while (isActive) {
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
@@ -139,9 +141,10 @@ public class UltimateGoalWebcam {
 
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                X = rotation.firstAngle;
-                Y = rotation.secondAngle;
-                Z = rotation.thirdAngle;
+                X = (int) rotation.firstAngle;
+                Y = (int) rotation.secondAngle;
+                Z = (int) rotation.thirdAngle;
+                run = false;
             }
             else {
                 telemetry.addData("Visible Target", "none");

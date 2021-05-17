@@ -29,7 +29,7 @@ public class DriverBoth extends LinearOpMode {
         BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
         waitForStart();
 
-        while (opModeIsActive()) {
+        while (opModeopModeIsActive()()) {
             //*******************
             // Drivetrain
             //*******************
@@ -52,16 +52,16 @@ public class DriverBoth extends LinearOpMode {
 
             switch (config.SIDE) {
                 case "blue":
-                    while(gamepad1.x) {drivetrain.setHeading(0);}
-                    while(gamepad1.a) {drivetrain.setHeading(90);} // +angle is left
-                    while(gamepad1.y) {drivetrain.setHeading(-90);} // -angle is right
-                    while(gamepad1.b) {drivetrain.setHeading(180);}
+                    while(gamepad1.x && opModeIsActive()) {drivetrain.setHeading(0);}
+                    while(gamepad1.a && opModeIsActive()) {drivetrain.setHeading(90);} // +angle is left
+                    while(gamepad1.y && opModeIsActive()) {drivetrain.setHeading(-90);} // -angle is right
+                    while(gamepad1.b && opModeIsActive()) {drivetrain.setHeading(180);}
                     break;
                 case "red":
-                    while(gamepad1.x) {drivetrain.setHeading(180);}
-                    while(gamepad1.a) {drivetrain.setHeading(-90);} // +angle is left
-                    while(gamepad1.y) {drivetrain.setHeading(90);} // -angle is right
-                    while(gamepad1.b) {drivetrain.setHeading(0);}
+                    while(gamepad1.x && opModeIsActive()) {drivetrain.setHeading(180);}
+                    while(gamepad1.a && opModeIsActive()) {drivetrain.setHeading(-90);} // +angle is left
+                    while(gamepad1.y && opModeIsActive()) {drivetrain.setHeading(90);} // -angle is right
+                    while(gamepad1.b && opModeIsActive()) {drivetrain.setHeading(0);}
                     break;
             }
             

@@ -26,9 +26,9 @@ import java.util.Locale;
 public class AutoBoth extends LinearOpMode {
     public void runOpMode() {
         Config config = new Config();
-        Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry);
-        UltimateGoalWebcam goal = new UltimateGoalWebcam(hardwareMap, telemetry);
-        BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry);
+        Drivetrain drivetrain = new Drivetrain(hardwareMap, telemetry, opModeIsActive());
+        UltimateGoalWebcam goal = new UltimateGoalWebcam(hardwareMap, telemetry, opModeIsActive());
+        BrainNew brain = new BrainNew(hardwareMap, drivetrain, telemetry, opModeIsActive());
         Shooter shooter = new Shooter(hardwareMap);
         telemetry.addData("Ready", "Yes");
         telemetry.update();
