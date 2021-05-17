@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -21,67 +20,56 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 public class UltimateGoalWebcam {
     Config config = new Config();
-    HardwareMap hardwareMap = null;
-
-    // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
-    // We will define some constants and conversions here
     private static final float mmPerInch        = 25.4f;
-    private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
-
-    // Constants for perimeter targets
+    private static final float mmTargetHeight   = (6) * mmPerInch; 
+    
     private static final float halfField = 72 * mmPerInch;
     private static final float quadField  = 36 * mmPerInch;
 
     // Class Members
     private OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
-
     WebcamName webcamName = null;
+    HardwareMap hardwareMap;
+    Telemetry telemetry;
 
-    VectorF translation = null;
-    boolean targetVisible = false;
+    private boolean targetVisible = false;
+    private float phoneXRotate    = 0;
+    private float phoneYRotate    = 0;
+    private float phoneZRotate    = 0;
 
-    double X;
-    double Y;
+    int X = 0;
+    int Y = 0;
+    int Z = 0;
 
-    public UltimateGoalWebcam(HardwareMap hwareMap) {
-        hardwareMap = hwareMap;
-    }
-
-    public double getX() {
+    public int getX() {
         return X;
     }
 
-    public double getY() {
+    public int getY() {
         return Y;
     }
 
-    public void getCoordinates() {
-        /*
-         * Retrieve the camera we are to use.
-         */
+    public int getZ() {
+        return Z;
+    }
+
+    public UltimateGoalWebcam(HardwareMap hardwaremap, Telemetry atelemetry) {
+        hardwareMap = hardwaremap;
+        telemetry = atelemetry;
+    }
+
+    public void run() {
         webcamName = hardwareMap.get(WebcamName.class, config.WEBCAM_NAME);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-
         parameters.vuforiaLicenseKey = config.VUFORIA_KEY;
-
-        /**
-         * We also indicate which camera on the RC we wish to use.
-         */
         parameters.cameraName = webcamName;
-
-        // Make sure extended tracking is disabled for this example.
         parameters.useExtendedTracking = false;
 
-        //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-        // Load the data sets for the trackable objects. These particular data
-        // sets are stored in the 'assets' part of our application.
         VuforiaTrackables targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
         blueTowerGoalTarget.setName("Blue Tower Goal Target");
@@ -94,11 +82,9 @@ public class UltimateGoalWebcam {
         VuforiaTrackable frontWallTarget = targetsUltimateGoal.get(4);
         frontWallTarget.setName("Front Wall Target");
 
-        // For convenience, gather together all the trackable objects in one easily-iterable collection */
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsUltimateGoal);
 
-        //Set the position of the perimeter targets with relation to origin (center of field)
         redAllianceTarget.setLocation(OpenGLMatrix
                 .translation(0, -halfField, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180)));
@@ -126,23 +112,18 @@ public class UltimateGoalWebcam {
                     .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
                     .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XZY, DEGREES, 90, 90, 0));
 
-        /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setCameraLocationOnRobot(parameters.cameraName, cameraLocationOnRobot);
         }
 
         targetsUltimateGoal.activate();
-        if (true) {
-
-            // check all the trackable targets to see which one (if any) is visible.
+        while (!isStopRequested()) {
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
-                    // telemetry was here
+                    telemetry.addData("Visible Target", trackable.getName());
                     targetVisible = true;
 
-                    // getUpdatedRobotLocation() will return null if no new information is available since
-                    // the last time that call was made, or if the trackable is not currently visible.
                     OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                     if (robotLocationTransform != null) {
                         lastLocation = robotLocationTransform;
@@ -151,25 +132,22 @@ public class UltimateGoalWebcam {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
-                // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation();
-                // telemetry was here
+                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
-                // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                // telemetry was here
+                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                X = rotation.firstAngle;
+                Y = rotation.secondAngle;
+                Z = rotation.thirdAngle;
             }
             else {
-                // telemetry was here
+                telemetry.addData("Visible Target", "none");
             }
-            // telemetry was here
+            telemetry.update();
         }
-
-        // Disable Tracking when we are done;
         targetsUltimateGoal.deactivate();
-        X = translation.get(0) / mmPerInch;
-        Y = translation.get(1) / mmPerInch;
     }
 }
